@@ -22,15 +22,15 @@ vector<vector<int>> fourSum (vector<int> &arr, int X)
     for (int i = 0; i < n-1; i++)
         for (int j = i+1; j < n; j++) {
             if(mp[arr[i] + arr[j]].find(make_pair(arr[j],arr[i])) == mp[arr[i]+arr[j]].end())
-            mp[arr[i] + arr[j]].insert(make_pair(arr[i], arr[j]));
+                mp[arr[i] + arr[j]].insert(make_pair(arr[i], arr[j]));
         }
-    for(auto i : mp){
+   /* for(auto i : mp){
         cout<<i.first<<" : ";
         for(auto j : i.second){
             cout<<"("<<j.first<<","<<j.second<<"), ";
         }
         cout<<endl;
-    }
+    }*/
 
     // Traverse through all pairs and search
     // for X - (current pair sum).
@@ -39,12 +39,13 @@ vector<vector<int>> fourSum (vector<int> &arr, int X)
 
     for(auto i : mp){
         int sum = X - i.first;
-        if (mp.find(sum) != mp.end()){
-                unordered_set<pair<int,int>,hash_pair> p = mp[X - sum];
-
+        if (mp.find(sum) != mp.end() ){
+            cout<<i.first<<" : "<<sum<<endl;
+                unordered_set<pair<int,int>,hash_pair> p = mp[sum];
                 for(auto j : i.second){
                     for(auto x : p) {
                         vector<int>ft;
+                     if((j.first != x.first && j.second != x.second)||(j.first != x.second && j.second != x.first));
                         ft.push_back(j.first);
                         ft.push_back(j.second);
                         ft.push_back(x.first);
@@ -52,10 +53,11 @@ vector<vector<int>> fourSum (vector<int> &arr, int X)
                         v.push_back(ft);
                     }
                 }
+            }
+
         }
-    }
     return v;
-    }
+}
 
 // Driver program to test above function
 int main()
