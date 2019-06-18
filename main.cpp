@@ -3,8 +3,20 @@
 //
 
 #include<iostream>
+#include "AdaptedStack1.h"
 using namespace std;
+
+#define rep(i,n) for(int i = 1; i<=n; i++)
+
 int main(){
-    cout<<"Hello World";
-    return 0;
+    AdaptedStack1 st;
+
+    rep(i,10){
+        st.ASpush(i);
+    }
+
+    rep(i,10){
+        cout<<st.AStop()<<" ";
+        st.ASpop();
+    }
 }
