@@ -34,9 +34,26 @@ typedef vector<int> vi;
 typedef vector<long long> vll;
 #define ll long long
 #define inf LLONG_MAX
-int countSubArrays(vector<int> a, int n) {
-    //Write your code here.
+int countSubArrays(vector<int>& a, int n) {
+    //Write your code here
 
+    vector<int>v;
+    for (auto i : a){
+        if(i == 0) v.pb(-1);
+        else v.pb(1);
+    }
+
+    unordered_map<int,int>freq;
+    int ans = 0;
+    int s = 0;
+    freq[0]++;
+    for(auto i : v){
+        s += i;
+        if(freq.find(s) != freq.end())
+            ans += (freq[s]);
+        freq[s]++;
+    }
+    return ans;
 }
 int main(){
     IOS
