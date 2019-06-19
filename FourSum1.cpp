@@ -39,9 +39,10 @@ vector<vector<int>> fourSum (vector<int> &arr, int X)
 
     for(auto i : mp){
         int sum = X - i.first;
-        if (mp.find(sum) != mp.end() ){
+        if (mp.find(sum) != mp.end() && sum != i.first){
             cout<<i.first<<" : "<<sum<<endl;
                 unordered_set<pair<int,int>,hash_pair> p = mp[sum];
+                mp.erase(sum);
                 for(auto j : i.second){
                     for(auto x : p) {
                         vector<int>ft;
