@@ -1,6 +1,7 @@
 //
 // Created by sark2 on 19-06-2019.
 //
+
 #pragma GCC optimize("O3")
 
 //(UNCOMMENT WHEN HAVING LOTS OF RECURSIONS)
@@ -10,8 +11,10 @@
 
 // -------------------</optimizations>--------------------)
 #include <bits/stdc++.h>
+
+
 using namespace std;
-#define IOS  cin.sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define IOS    cin.sync_with_stdio(0);cin.tie(0);cout.tie(0);
 #define rep(i, n)    for(int i = 1; i <= (n); ++i)
 #define repA(i, a, n)  for(int i = a; i <= (n); ++i)
 #define repD(i, a, n)  for(int i = a; i >= (n); --i)
@@ -32,35 +35,39 @@ typedef vector<int> vi;
 typedef vector<long long> vll;
 #define ll long long
 #define inf LLONG_MAX
-int SieveOfEratos(int n){
-
-    bool isPrime[n+2];
-    rep(i,n){
-        isPrime[i] = true;
+bool areKAnagrams(string &str1, string &str2, int k)
+{
+    // write your code here
+    unordered_map<char,int>freq;
+    repA(i,0,str1.length()-1){
+        freq[str1[i]]++;
     }
-    isPrime[1]
-    = false;
-    for(int i = 2; i*i <= n; i++){
-        if(isPrime[i]){
-            for(int j = i; j <= n; j = j+i)
-                if(j != i) isPrime[j] = false;
+    repA(i,0,str2.length()-1){
+        if(freq.find(str2[i]) != freq.end()){
+             freq[str2[i]]--;
+            if(freq[str2[i]] == 0) freq.erase(str2[i]);
         }
     }
-    int count = 0;
-    rep(i,n-1){
-        if(isPrime[i])count++;
-    }
-    return count;
+    if(freq.size()<=k) return true;
+    return false;
 }
-
 int main(){
     IOS
+    //Main Function
+    string s1, s2;
+    cin >> s1 >> s2;
+    int k = 0;
+    cin >> k;
 
-    int n;
-    cin>>n;
-    cout<<SieveOfEratos(n);
-
+    if (areKAnagrams(s1, s2, k))
+    {
+        cout << "true" << endl;
+    }
+    else
+    {
+        cout << "false" << endl;
+    }
+    return 0;
 
 
 }
-
