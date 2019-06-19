@@ -1,9 +1,8 @@
 //
 // Created by sark2 on 19-06-2019.
 //
-#include<iostream>
-#include<string>
-#include<vector>
+
+#include<bits/stdc++.h>
 using namespace std;
 
 class  operation{
@@ -32,6 +31,19 @@ void display(vector<operation>& list) {
 
 void print(vector<operation> & v){
     //  Write your code here
+    unordered_map<int, int>freq;
+
+    for(auto i : v){
+        if(i.op == 'A') freq[i.key]++;
+        else if(freq.find(i.key) != freq.end()){
+            freq[i.key]--;
+            if(freq[i.key]==0)
+                freq.erase(i.key);
+        }
+        cout<<freq.size()<<"\n";
+
+    }
+
 
 }
 
