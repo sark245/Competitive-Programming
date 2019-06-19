@@ -46,7 +46,7 @@ int SieveOfEratos(int n){
         }
     }
     int count = 0;
-    rep(i,n){
+    rep(i,n-1){
         if(isPrime[i])count++;
     }
     return count;
