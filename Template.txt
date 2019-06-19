@@ -33,6 +33,6 @@ typedef vector<long long> vll;
 #define inf LLONG_MAX
 
 int main(){
-    IOS()
+    IOS
     //Main Function
 }
