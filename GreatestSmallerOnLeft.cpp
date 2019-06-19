@@ -49,11 +49,5 @@ int main(){
         else{
             cout<<*s.upper_bound(a[i])<<" ";
     }
-
-
-
-
     }
-
-
 }
