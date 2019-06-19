@@ -45,9 +45,9 @@ int subArraySum(vector<int> arr, int n, int sum){
     int ans = 0;
     for(auto i : arr){
         s += i;
-        pfreq[s]++;
         if(pfreq.find(s-sum)!=pfreq.end())
             ans += (pfreq[s-sum]);
+        pfreq[s]++;
 
     }
     return ans;
