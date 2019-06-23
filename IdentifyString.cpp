@@ -44,18 +44,24 @@ string identifyString(string s){
     priority_queue<pair<int,char>>q;
 
     for(auto i : freq){
+        cout<<i.first<<i.second<<endl;
         q.push({i.second,i.first});
     }
-
+//*************************************************
     string res = "";
     queue<pair<int,char>>q2;
    while(!q.empty()){
-       pair<int, char>p = q.top();
-       while(p.first == q.top().first ) {
+
+      int p = q.top().first;
+    cout<<"F="<<p<<endl;
+     while(p == q.top().first) {
            cout<<q.top().second<<" : "<<q.top().first<<endl;
             q2.push(q.top());
             q.pop();
+            cout<<"Pop\n";
+            cout<<q2.size()<<endl;
        }
+
        while(!q2.empty()) {
            pair<int,char>p2 = q2.front();
            cout<<"Q2 : "<<q2.front().second<<" : "<<q2.front().first<<endl;

@@ -9,6 +9,17 @@ struct hash_pair{
         return hash1^hash2;
     }
 };
+struct VectorHash {
+    size_t operator()(const std::vector<int>& v) const {
+        std::hash<int> hasher;
+        size_t seed = 0;
+        for (int i : v) {
+            seed ^= hasher(i) + 0x9e3779b9 + (seed<<6) + (seed>>2);
+        }
+        return seed;
+    }
+};
+
 
 // The function finds four elements with given sum X
 vector<vector<int>> fourSum (vector<int> &arr, int X)
@@ -19,45 +30,60 @@ vector<vector<int>> fourSum (vector<int> &arr, int X)
     //To store all the O(n^2) pairs
     unordered_map<int,unordered_set<pair<int,int>,hash_pair>> mp;
 
+    //Creates Sum vs Index Pair HashMap
     for (int i = 0; i < n-1; i++)
         for (int j = i+1; j < n; j++) {
-            if(mp[arr[i] + arr[j]].find(make_pair(arr[j],arr[i])) == mp[arr[i]+arr[j]].end())
-                mp[arr[i] + arr[j]].insert(make_pair(arr[i], arr[j]));
+
+                mp[arr[i] + arr[j]].insert(make_pair(i,j));
         }
-   /* for(auto i : mp){
+    for(auto i : mp){
         cout<<i.first<<" : ";
         for(auto j : i.second){
             cout<<"("<<j.first<<","<<j.second<<"), ";
         }
         cout<<endl;
-    }*/
-
-    // Traverse through all pairs and search
-    // for X - (current pair sum).
-    vector<vector<int>>v;
+    }
 
 
-    for(auto i : mp){
+
+    unordered_set<string>v;
+    //Find complimentary sums
+    for(auto i : mp) {
         int sum = X - i.first;
-        if (mp.find(sum) != mp.end() && sum != i.first){
-            cout<<i.first<<" : "<<sum<<endl;
-                unordered_set<pair<int,int>,hash_pair> p = mp[sum];
-                mp.erase(sum);
-                for(auto j : i.second){
-                    for(auto x : p) {
-                        vector<int>ft;
-                     if((j.first != x.first && j.second != x.second)||(j.first != x.second && j.second != x.first));
-                        ft.push_back(j.first);
-                        ft.push_back(j.second);
-                        ft.push_back(x.first);
-                        ft.push_back(x.second);
-                        v.push_back(ft);
+        if (mp.find(sum) != mp.end()) {
+            // cout<<i.first<<" : "<<sum<<endl;
+            unordered_set<pair<int, int>, hash_pair> p = mp[sum];
+            mp.erase(sum);
+            for (auto j : i.second) {
+                for (auto x : p) {
+                    string ft;
+                    //cout << j.first << " " << j.second << " " << x.first << " " << x.second << endl;
+                    if (j.first != x.first && j.second != x.second && j.first != x.second && j.second != x.first) {
+                        ft = to_string(j.first)+ to_string(j.second)+ to_string(x.first)+ to_string(x.second);
+                        sort(ft.begin(),ft.end());
+                        v.insert(ft);
                     }
                 }
             }
-
         }
-    return v;
+    }
+
+    for(auto i : v)cout<<i<<endl;
+     unordered_set<vector<int>,VectorHash>s;
+   vector<vector<int>>res;
+    for(auto i : v){
+        vector<int>r;
+        for(auto j : i){
+            r.push_back(arr[stoi(string(1,j))]);
+        }
+        sort(r.begin(),r.end());
+        s.insert(r);
+    }
+    for(auto i : s){
+        res.push_back(i);
+    }
+    return res;
+
 }
 
 // Driver program to test above function
