@@ -14,24 +14,22 @@ using namespace std;
 
 int solve(vector<int>& arr) {
     // write your code here.
-    unordered_map<int,queue<pair<int,int>>>map;
-    for(int i = 0 ; i < arr.size()-1; i++){
-        for(int j = i+1 ; j < arr.size(); j++){
-            map[arr[i]*arr[j]].push({arr[i],arr[j]});
+    unordered_map<int,int>map;
+    unordered_set<int>set;
+    for(auto i : arr){
+        set.insert(i);
+    }
+    unordered_set<int>::iterator it, jt;
+    for(it = set.begin(); it != set.end(); ++it){
+        for(jt = ++set.begin(); jt != set.end(); ++jt){
+            map[*it * *jt]++;
         }
     }
     for(auto i : map){
-        if(i.second.size() > 1) {
-            while (!i.second.empty()) {
-                pair<int, int> p = i.second.front();
-                i.second.pop();
-                if (p.first != i.second.front().first && p.first != i.second.front().second &&
-                    p.second != i.second.front().first && p.second != i.second.front().second)
-                    return 1;
-
-            }
-        }
+        if(i.second > 1)return 1;
     }
+
+
     return -1;
 
 }
@@ -49,7 +47,7 @@ int main(int argc,char** argv){
     int res = solve(v);
 
     if (res == 1) {
-        cout<<"Found"<<endl;;
+        cout<<"Found"<<endl;
     } else if (res == -1) {
         cout<<"Not Found"<<endl;
     }
