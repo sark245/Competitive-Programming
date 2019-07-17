@@ -8,9 +8,9 @@ using namespace std;
 #define IOS cin.sync_with_stdio(0);cin.tie(0);cout.tie(0);
 #define cases int t;cin>>t;while(t--)
 typedef long double ld;
-int Knapsack(int n, int W, int wt[], int p[]){
+int Knapsack(int n, int W, int wt[], long long int p[]){
 
-    int dp[n+1][W+1];
+    long long int dp[n+1][W+1];
 
     for(int i = 0; i <= W; i++)dp[0][i] = 0;
 
@@ -34,16 +34,14 @@ int Knapsack(int n, int W, int wt[], int p[]){
 int main() {
     IOS
 
-    cases{
+
      int n;
      cin>>n;
      int W;
      cin>>W;
-     int wt[n+1], p[n+1];
-        for(int i = 1; i <= n; i++)cin>>p[i];
-        for(int i = 1; i <= n; i++)cin>>wt[i];
+     int wt[n+1];
+     long long int p[n+1];
+        for(int i = 1; i <= n; i++)cin>>wt[i]>>p[i];
+
      cout<<Knapsack(n,W,wt,p)<<endl;
-    }
-
-
 }
