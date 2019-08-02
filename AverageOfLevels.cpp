@@ -85,36 +85,40 @@ vector<double> averageOfLevels(TreeNode* root) {
     // Write your code here
     vector<double>res;
     if(root == nullptr){
-        res.push_back(0.0);
+        res.push_back(0.0);     //Condition for Empty Tree
         return res;
     }
-    double temp = 0;
+    double temp = 0;        //To store sum at each level
+
     queue<TreeNode*>q;
     q.push(root);
     q.push(nullptr);
+
     res.push_back(root->val);
     int count = 0;
-    while(!q.empty()){
-        TreeNode* rem = q.front();
+    while(!q.empty()) {
+        TreeNode *rem = q.front();
         q.pop();
-        if(rem == nullptr){
-            res.push_back(temp/count);
-            if(q.empty())break;
+
+        if (rem == nullptr) {
+            if(count != 0) res.push_back(temp / count);
+            if (q.empty())break;
             q.push(nullptr);
             temp = 0;
             count = 0;
-            continue;
-        }
-        temp += root->val;
-        count++;
-        if(root->left != nullptr){
-            q.push(root->left);
-        }
-        if(root->right != nullptr){
-            q.push(root->right);
-        }
+        } else {
+            temp += root->val;
+            count++;
+            if (root->left != nullptr) {
+                q.push(root->left);
+            }
+            if (root->right != nullptr) {
+                q.push(root->right);
+            }
 
+        }
     }
+    return res;
 
 }
 
