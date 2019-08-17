@@ -39,6 +39,13 @@ int main() {
          }
      }
 
+     for(int i = 0; i <= N; i++){
+         for(int j = 0; j < m; j++){
+             cout<<dp[i][j]<<" ";
+         }
+         cout<<endl;
+     }
+
      cout<<dp[N][m-1];
 
     }
