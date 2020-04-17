@@ -1,0 +1,71 @@
+//Created by Kira
+
+#include<bits/stdc++.h>
+using namespace std;
+
+#define IOS cin.sync_with_stdio(0);cin.tie(0); cout.tie(0);
+#define all(x) x.begin(), x.end()
+#define sz(x) (int)x.size()
+#define pii pair<int,int> 
+#define pb push_back
+#define vi vector<int> 
+using ll = long long;
+
+const int mod = 1e9 + 7;
+
+ll pwr(ll a, ll b);
+    
+
+
+
+int main(){
+   IOS
+
+   int t; cin>>t;
+   while(t--){
+
+       int n; cin>>n;
+
+       vi a(n);
+       for(int & x: a)cin>>x;
+
+       ll dp[n+5][n+5];
+       memset(dp, 0, sizeof dp);
+
+       //[i...j] -> [i...k][k+1...j]
+       //a[i]xa[k+1] a[k+1]*a[j+1]
+
+      for(int i = 0; i < n-2; i++){
+          dp[i][i+1] = a[i]*a[i+1]*a[i+2];
+      }
+
+      for(int l = 3; l <= n; l++){
+          for(int i = 0; i < n-l; i++){
+              int j = i + l-1;
+              dp[i][j] = 1e10;
+
+              for(int k = i; k <= j; k++){
+                  dp[i][j] = min(dp[i][j], dp[i][k] + dp[k+1][j] + a[i]*a[k+1]*a[j+1]);
+              }
+          }
+      }
+
+
+      cout<<dp[0][n-2]<<"\n";
+   }
+
+}
+
+ll pwr(ll a, ll b){
+   a %= mod;	//Remove mod if not required
+   ll res = 1;
+   while(b > 0){
+    if(b&1)
+        res = res * a % mod;
+        a = a * a % mod;
+    b >>= 1;
+    }
+
+    return res;
+}
+
