@@ -1,0 +1,30 @@
+int Solution::solve(vector<vector<int> > &matrix) {
+    int rows = matrix.size();
+    if(rows==0) return 0;
+    int cols = matrix[0].size();
+    bool reach[rows][cols];
+    memset(reach,false,sizeof(reach));
+    reach[0][0]=true;
+    for(int it1=1;it1<cols;it1++){
+        if(matrix[0][it1] > matrix[0][it1-1]){
+            reach[0][it1]=true;
+        }
+        else    break;
+    }
+    for(int it1=1;it1<rows;it1++){
+        if(matrix[it1][0] > matrix[it1-1][0]){
+            reach[it1][0]=true;
+        }
+        else    break;
+    }
+    for(int it1=1;it1<rows;it1++){
+        for(int it2=1;it2<cols;it2++){
+            if((reach[it1-1][it2]) && (matrix[it1][it2] > matrix[it1-1][it2]))  
+                reach[it1][it2]=true;
+            else if((reach[it1][it2-1]) && (matrix[it1][it2] > matrix[it1][it2-1]))  
+                reach[it1][it2]=true;
+        }
+    }
+    if(reach[rows-1][cols-1])   return rows+cols-1;
+    return -1;
+}
